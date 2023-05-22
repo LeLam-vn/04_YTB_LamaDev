@@ -34,8 +34,8 @@ const Wrapper = styled.div`
   background-color: aquamarine;
   height: 100%;
   display: flex;
-  transition: all 1.5s ease;
-  transform: translateX(${props=>props.slideIndex * -100}vw);
+  transition: all 1s ease;
+  transform: translateX(${props => props.index * -100}vw);
 
 `;
 
@@ -90,11 +90,11 @@ const Button = styled.button`
 const Slider = () => {
     const [slideIndex, setSlideIndex] = useState(0);
     console.log('slideIndex:', slideIndex)
-    const count = sliderItems.length -1
+    const count = sliderItems.length - 1
     console.log(count)
     const handleClick = (direction) => {
         if (direction === 'left') {
-            setSlideIndex(slideIndex >= 0 ? slideIndex - 1 : count)
+            setSlideIndex(slideIndex > 0 ? slideIndex - 1 : count)
             console.log('left:', slideIndex)
         } else {
             setSlideIndex(slideIndex < count ? slideIndex + 1 : 0)
@@ -106,10 +106,12 @@ const Slider = () => {
             <Arrow direction='left' onClick={() => handleClick('left')}>
                 <ArrowLeftOutlined/>
             </Arrow>
-            <Wrapper slideIndex={slideIndex}>
+            <Wrapper index={slideIndex}>
                 {sliderItems.map(item => (
                     <Slide
-                        index={item.id} bg={item.bg}>
+                        key={item.id}
+                        bg={item.bg}
+                    >
                         <ImgContainer>
                             <Image
                                 src={item.img}
