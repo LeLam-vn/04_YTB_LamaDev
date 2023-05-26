@@ -20,6 +20,6 @@ app.get('/api/test', () => {
 
 app.use('/api/users', userRoute)
 
-app.listen(process.env.PORT || 5003, () => {
+app.listen(process.env.PORT || 5005, () => {
     console.log('Server is running')
 })
