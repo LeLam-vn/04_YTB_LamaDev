@@ -1,5 +1,6 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema
+
 
 const UserSchema = new Schema(
     {
@@ -8,11 +9,11 @@ const UserSchema = new Schema(
         password: {type: String, require: true,},
         isAdmin: {
             type: Boolean,
-            default: false
+            default: false,
         },
-        createdAt: Date.now()
+        // createdAt: Date.now()- used timestamp
     },
     {timestamps: true}
-)
+);
 
-module.export = mongoose.model('User', UserSchema)
+module.exports = mongoose.model('User', UserSchema);
