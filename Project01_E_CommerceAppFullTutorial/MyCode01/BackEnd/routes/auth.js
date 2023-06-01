@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const User = require('../models/User');
 const CryptoJS = require('crypto-js');
+const jwt = require("jsonwebtoken");
 
 
 //REGISTER
@@ -41,7 +42,7 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async (req, res) => {
     const {username, password} = req.body
-    if(!username||!password){
+    if (!username || !password) {
         return res.status(401).json({
             success: false,
             message: 'Wrong Credentials-not found username and/or password'
@@ -61,16 +62,26 @@ router.post('/login', async (req, res) => {
         console.log(hashedPassword)
         const password_database = hashedPassword.toString(CryptoJS.enc.Utf8);
         console.log('password_database: ', password_database)
-        password_database !== req.body.password && res.status(401).json({
-            success: false,
-            message: 'Wrong Credentials-password is not exactly'
-        });
-        const {password,...others} = userLogin._doc
+        const {password, ...others} = userLogin._doc
+        password_database !== req.body.password &&
+        res
+            .status(401)
+            .json({
+                success: false,
+                message: 'Wrong Credentials-password is not exactly'
+            });
+        const accessToken = jwt.sign({
+                id: userLogin._id,
+                isAdmin: userLogin.isAdmin
+            },
+            process.env.JWT_SEC,
+            {expiresIn: "3d"})
         return res
             .status(201)
             .json({
                 success: true,
                 message: 'Welcome user: ',
+                accessToken,
                 userLogin,
                 others
             })
