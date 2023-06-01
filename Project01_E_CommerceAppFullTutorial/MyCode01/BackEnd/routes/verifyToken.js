@@ -47,7 +47,7 @@ const verifyTokenAndAdmin = (req, res, next) => {
                 .status(403)
                 .json({
                     success: false,
-                    message: 'You are not allowed to do that!-verifyToken.js-35'
+                    message: 'You are not Admin to do that!-verifyToken.js-50'
                 })
         }
     })
