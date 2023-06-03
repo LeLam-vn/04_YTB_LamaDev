@@ -17,6 +17,8 @@ const {verifyTokenAndAuthorization, verifyTokenAndAdmin} = require("./verifyToke
 const router = require('express').Router();
 const CryptoJS = require('crypto-js');
 const User = require('../models/User')
+
+//UPDATE USER
 router.put('/:id', verifyTokenAndAuthorization, async (req, res) => {
     console.log('req.body.password-BE-user.js-21: ', req.body.password)
     if (req.body.password) {
