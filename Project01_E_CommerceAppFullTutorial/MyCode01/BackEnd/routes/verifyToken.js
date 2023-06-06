@@ -2,10 +2,10 @@ const jwt = require('jsonwebtoken')
 
 const verifyToken = (req, res, next) => {
     const authHeader = req.headers.token;
-    console.log('req.headers-BE-verifyToken-5:', req.headers)
+    // console.log('req.headers-BE-verifyToken-5:', req.headers)
     if (authHeader) {
         const token = authHeader.split(' ')[1]
-        console.log('token-BE-verifyToken-8: ', token)
+        // console.log('token-BE-verifyToken-8: ', token)
         jwt.verify(token, process.env.JWT_SEC, (error, user) => {
             if (error) res
                 .status(403)
@@ -14,7 +14,7 @@ const verifyToken = (req, res, next) => {
                     message: 'Token is not valid_BE_verifyToken_verifyToken.js-14'
                 });
             req.user = user;
-            console.log('user-BE-verifyToken-17: ', user)
+            // console.log('user-BE-verifyToken-17: ', user)
             next();
         });
     } else {
@@ -31,7 +31,7 @@ const verifyToken = (req, res, next) => {
 const verifyTokenAndAuthorization = (req, res, next) => {
     verifyToken(req, res, () => {
         if (req.user.id === req.params.id || req.user.isAdmin) {
-            console.log('req.user.id-BE-verifyToken.js-34: ', req.user.id)
+            // console.log('req.user.id-BE-verifyToken.js-34: ', req.user.id)
             next()
         } else {
             return res.status(403).json({success: false, message: 'You are not allowed to do that!-verifyToken.js-35'})

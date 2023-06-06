@@ -103,7 +103,7 @@ router.delete('/:id', verifyTokenAndAdmin, async (req, res) => {
             .status(500)
             .json({
                 success: false,
-                message: 'Something wrong of internal server!-BE- product.js-107',
+                message: 'Something wrong of internal server!-BE- product.js-106',
                 error
             })
     }
