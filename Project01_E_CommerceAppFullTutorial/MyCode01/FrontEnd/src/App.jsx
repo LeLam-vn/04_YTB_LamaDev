@@ -13,8 +13,32 @@ import {
 import Success from "./pages/Success.jsx";
 
 const App = () => {
+    const user = true;
     return (
-        <Home/>
+        <Router>
+            <Switch>
+                <Route exact path='/'>
+                    <Home/>
+                </Route>
+                <Route path='/products/:category'>
+                    <ProductList/>
+                </Route>
+                <Route path='/product/:id'>
+                    <Product/>
+                </Route>
+                <Route path='/cart'>
+                    <Cart/>
+                </Route>
+                <Route path='/login'>
+                    {user ? <Redirect to='/'/> : <Redirect to='/login'/>}
+                    <Login/>
+                </Route>
+                <Route path='/register'>
+                    {user ? <Redirect to='/'/> : <Redirect to='/register'/>}
+                    <Register/>
+                </Route>
+            </Switch>
+        </Router>
     );
 };
 

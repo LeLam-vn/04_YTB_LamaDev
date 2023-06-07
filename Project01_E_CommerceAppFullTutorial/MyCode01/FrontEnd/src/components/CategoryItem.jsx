@@ -1,17 +1,23 @@
 import styled from "styled-components";
-
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Redirect,
+    Link, NavLink
+} from "react-router-dom";
 
 const Container = styled.div`
- flex:1;
+  flex: 1;
   margin: 3px;
   height: 40vh;
   position: relative;
 `;
 
 const Image = styled.img`
- width: 100%;
+  width: 100%;
   height: 100%;
-  object-fit:cover;
+  object-fit: cover;
 `;
 const Info = styled.div`
   top: 0;
@@ -41,11 +47,13 @@ const Button = styled.button`
 const CategoryItem = ({item}) => {
     return (
         <Container>
-            <Image src={item.img}/>
-            <Info>
-                <Title>{item.title}</Title>
-                <Button>SHOP NOW</Button>
-            </Info>
+            <NavLink to={`/products/${item.cat}`}>
+                <Image src={item.img}/>
+                <Info>
+                    <Title>{item.title}</Title>
+                    <Button>SHOP NOW</Button>
+                </Info>
+            </NavLink>
         </Container>
     )
 }

@@ -108,7 +108,7 @@ const Product = () => {
             <Announcement/>
             <Wrapper>
                 <ImgContainer>
-                    <Img src='https://i.ibb.co/MPqg6Gx/FB-IMG-1603159752092.jpg'/>
+                    <Img src='https://i.ibb.co/sPYQm8Z/350781631-285208143945275-6333259006486475233-n.jpg'/>
                 </ImgContainer>
                 <InfoContainer>
                     <Title>Denim Jumsuit</Title>

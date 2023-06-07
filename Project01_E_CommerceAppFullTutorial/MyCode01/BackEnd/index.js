@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express();
+const cors = require('cors');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const userRoute = require('./routes/user')
@@ -25,7 +26,7 @@ app.listen(process.env.PORT || 5009, () => {
 // app.get('/api/test', () => {
 //     console.log('BE_Test is successfully!')
 // })
-
+app.use(cors());
 app.use(express.json());
 app.use('/api/users', userRoute);
 app.use('/api/auth', authRoute);
