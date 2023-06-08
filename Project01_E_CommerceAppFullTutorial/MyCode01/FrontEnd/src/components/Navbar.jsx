@@ -3,11 +3,12 @@ import styled from "styled-components";
 import {Search, ShoppingCartOutlined} from "@mui/icons-material";
 import {Badge} from "@mui/material";
 import {mobile} from "../responsive.js";
+import {Link, Redirect} from "react-router-dom";
 
 const Container = styled.div`
   height: 60px;
   ${mobile({
-    height:'50px'
+    height: '50px'
   })}
 `;
 const Wrapper = styled.div`
@@ -42,12 +43,14 @@ const SearchContainer = styled.div`
 const Input = styled.input`
   border: none;
   ${mobile({
-    width:"50%"
+    width: "50%"
   })}
 `;
 
 const Center = styled.div`
   flex: 1;
+  cursor: pointer;
+  
 `;
 
 const Logo = styled.h1`
@@ -86,19 +89,21 @@ const Navbar = () => {
                 <Left>
                     <Language>EN</Language>
                     <SearchContainer>
-                        <Input placeholder='Search'></Input  >
-                        <Search style={{color:'gray', fontsize:'16px'}}></Search>
+                        <Input placeholder='Search'></Input>
+                        <Search style={{color: 'gray', fontsize: '16px'}}></Search>
                     </SearchContainer>
                 </Left>
                 <Center>
-                    <Logo>LAMA.</Logo>
+                    <Link to='/'>
+                        <Logo>LAMA.</Logo>
+                    </Link>
                 </Center>
                 <Right>
                     <MenuItem>REGISTER</MenuItem>
                     <MenuItem>LOG IN</MenuItem>
                     <MenuItem>
                         <Badge badgeContent={4} color="primary">
-                            <ShoppingCartOutlined color="action" />
+                            <ShoppingCartOutlined color="action"/>
                         </Badge>
                     </MenuItem>
 
