@@ -108,16 +108,18 @@ const Product = () => {
 
     const location = useLocation()
     const id = location.pathname.split('/')[2]
-    console.log('id-FE-Product.jsx-108', id)
+    // console.log('id-FE-Product.jsx-108', id)
 
     const [product, setProduct] = useState({});
-    const [quantity, setQuantity] = useState(10);
+    const [quantity, setQuantity] = useState(1);
+    const [color, setColor] = useState('');
+    const [size, setSize] = useState('');
 
     useEffect(() => {
         const getProduct = async () => {
             try {
                 const res = await publicRequest.get(`/products/find/${id}`)
-                console.log('res.data.product-FE-Product.jsx-120:', res.data.product)
+                // console.log('res.data.product-FE-Product.jsx-120:', res.data.product)
                 setProduct(res.data.product);
             } catch (error) {
                 console.log('error--FE-Product.jsx-123:', error)
@@ -125,26 +127,42 @@ const Product = () => {
         }
         getProduct()
     }, [id]);
-    console.log('product-FE-Product.jsx-128:', product)
-    console.log('product.color-FE-Product.jsx-129:', product.color)
+    // console.log('product-FE-Product.jsx-128:', product)
+    // console.log('product.color-FE-Product.jsx-129:', product.color)
 
     const handleClickAmount = (type) => {
         // const count = quantity + parseInt(event.target.value)
         // console.log(event.target)
         // setQuantity(count)
-        switch (type) {
-            case 'dec':
-                setQuantity(quantity - 1)
-                break;
-            case 'inc':
-                setQuantity(quantity + 1)
-                break;
-            default:
-                console.log('Looi')
-                breal;
+
+        // switch (type) {
+        //     case 'dec': {
+        //         setQuantity(quantity - 1)
+        //         break;
+        //     }
+        //     case 'inc':
+        //         setQuantity(quantity + 1)
+        //         break;
+        //     default:
+        //         console.log('Loi')
+        //         break;
+        // }
+
+        if (type === 'dec') {
+            quantity > 1
+                ? setQuantity(quantity - 1)
+                :
+                // console.log('San pham toi thieu la 1');
+                setQuantity(1)
+
+        } else if (type === 'inc') {
+            setQuantity(quantity + 1)
         }
     }
+console.log('Color: ', color,  "and Size: ", size)
+    const handleClickAddCart=()=>{
 
+    }
 
     return (
         <Container>
@@ -162,15 +180,30 @@ const Product = () => {
                         <Filter>
                             <FilterTitle>Color</FilterTitle>
                             {product.color ? product.color.map((co) =>
-                                (<FilterColor color={co} key={co}/>)
+                                (<FilterColor
+                                    color={co}
+                                    key={co}
+                                    onClick={
+                                        () => {
+                                            console.log('co:', co)
+                                            setColor(co)
+                                        }
+                                    }
+                                />)
                             ) : "none"}
                         </Filter>
                         <Filter>
                             <FilterTitle>Size</FilterTitle>
-                            <FilterSize>
+                            <FilterSize onChange={(event) => {
+                                console.log('si: ', event.target.value);
+                                setSize(event.target.value)
+                            }}>
                                 {product.size
                                     ? product.size.map((si) =>
-                                        (<FilterSizeOption key={si}>{si}</FilterSizeOption>)
+                                        (<FilterSizeOption key={si}>
+                                                {si}
+                                            </FilterSizeOption>
+                                        )
                                     )
                                     : 'none'
                                 }
@@ -180,15 +213,15 @@ const Product = () => {
                     </FilterContainer>
                     <AddContainer>
                         <AmountContainer>
-                            <Remove onClick={()=>handleClickAmount('dec')}></Remove>
+                            <Remove onClick={() => handleClickAmount('dec')}></Remove>
                             <Amount>
                                 {
                                     quantity
                                 }
                             </Amount>
-                            <Add onClick={()=>handleClickAmount('inc')}></Add>
+                            <Add onClick={() => handleClickAmount('inc')}></Add>
                         </AmountContainer>
-                        <Button>Add To Cart</Button>
+                        <Button onClick={handleClickAddCart}>Add To Cart</Button>
                     </AddContainer>
                 </InfoContainer>
             </Wrapper>
