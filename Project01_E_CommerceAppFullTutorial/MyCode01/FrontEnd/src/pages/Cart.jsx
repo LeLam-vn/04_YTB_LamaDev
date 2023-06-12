@@ -4,6 +4,8 @@ import Navbar from '../components/Navbar.jsx'
 import Announcement from '../components/Announcement.jsx'
 import Footer from '../components/Footer.jsx'
 import {Add, Remove} from '@mui/icons-material'
+import {useSelector} from "react-redux";
+import products from "../components/Products.jsx";
 
 const Container = styled.div``
 const Wrapper = styled.div`
@@ -123,6 +125,11 @@ const Button = styled.button`
 `
 
 const Cart = () => {
+
+
+    const products = useSelector(state => state.cart.products)
+    const total = useSelector(state => state.cart.total)
+    console.log('products.total-FE-cart.jsx-130:', products)
     return (
         <Container>
             <Navbar/>
@@ -139,65 +146,98 @@ const Cart = () => {
                 </Top>
                 <Bottom>
                     <Info>
-                        <Product>
-                            <ProductDetail>
-                                <Image
-                                    src="https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1614188818-TD1MTHU_SHOE_ANGLE_GLOBAL_MENS_TREE_DASHERS_THUNDER_b01b1013-cd8d-48e7-bed9-52db26515dc4.png?crop=1xw:1.00xh;center,top&resize=480%3A%2A"/>
-                                <Details>
-                                    <ProductName>
-                                        <b> Product: </b> JESSIE THUNDER SHOES
-                                    </ProductName>
-                                    <ProductID>
-                                        <b> ID: </b>SD34F3 IQW2923494823
-                                    </ProductID>
-                                    <ProductColor color="black"/>
-                                    <ProductSize>
-                                        <b> Size: </b>38.5
-                                    </ProductSize>
-                                </Details>
-                            </ProductDetail>
-                            <PriceDetail>
-                                <ProductAmountContainer>
-                                    <Add style={{cursor: 'pointer'}}/>
-                                    <ProductAmount> 3 </ProductAmount>
-                                    <Remove style={{cursor: 'pointer'}}/>
-                                </ProductAmountContainer>
-                                <ProductPrice> $ 300 </ProductPrice>
-                            </PriceDetail>
-                        </Product>
-                        <Hr/>
-                        <Product>
-                            <ProductDetail>
-                                <Image
-                                    src="https://i.pinimg.com/originals/2d/af/f8/2daff8e0823e51dd752704a47d5b795c.png"/>
-                                <Details>
-                                    <ProductName>
-                                        <b> Product: </b> HAKURA T-SHIRT
-                                    </ProductName>
-                                    <ProductID>
-                                        <b> ID: </b>SD34F3 IQW2923494823
-                                    </ProductID>
-                                    <ProductColor color="gray"/>
-                                    <ProductSize>
-                                        <b> Size: </b>M
-                                    </ProductSize>
-                                </Details>
-                            </ProductDetail>
-                            <PriceDetail>
-                                <ProductAmountContainer>
-                                    <Add style={{cursor: 'pointer'}}/>
-                                    <ProductAmount> 3 </ProductAmount>
-                                    <Remove style={{cursor: 'pointer'}}/>
-                                </ProductAmountContainer>
-                                <ProductPrice> $ 150 </ProductPrice>
-                            </PriceDetail>
-                        </Product>
+                        {
+                            products.map(product =>
+                                <>
+                                    <Product key={product._id}>
+                                        <ProductDetail>
+                                            <Image
+                                                src={product.img}/>
+                                            <Details>
+                                                <ProductName>
+                                                    <b> Product: </b> {product.title}
+                                                </ProductName>
+                                                <ProductID>
+                                                    <b> ID: </b>{product._id}
+                                                </ProductID>
+                                                <ProductColor color={product.color}/>
+                                                <ProductSize>
+                                                    <b> Size: </b>{product.size}
+                                                </ProductSize>
+                                            </Details>
+                                        </ProductDetail>
+                                        <PriceDetail>
+                                            <ProductAmountContainer>
+                                                <Add style={{cursor: 'pointer'}}/>
+                                                <ProductAmount> {product.quantity} </ProductAmount>
+                                                <Remove style={{cursor: 'pointer'}}/>
+                                            </ProductAmountContainer>
+                                            <ProductPrice> $ {product.price * product.quantity} </ProductPrice>
+                                        </PriceDetail>
+                                    </Product>
+                                    <Hr/>
+                                </>
+                            )
+                        }
+                        {/*<Product>*/}
+                        {/*    <ProductDetail>*/}
+                        {/*        <Image*/}
+                        {/*            src="https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1614188818-TD1MTHU_SHOE_ANGLE_GLOBAL_MENS_TREE_DASHERS_THUNDER_b01b1013-cd8d-48e7-bed9-52db26515dc4.png?crop=1xw:1.00xh;center,top&resize=480%3A%2A"/>*/}
+                        {/*        <Details>*/}
+                        {/*            <ProductName>*/}
+                        {/*                <b> Product: </b> JESSIE THUNDER SHOES*/}
+                        {/*            </ProductName>*/}
+                        {/*            <ProductID>*/}
+                        {/*                <b> ID: </b>SD34F3 IQW2923494823*/}
+                        {/*            </ProductID>*/}
+                        {/*            <ProductColor color="black"/>*/}
+                        {/*            <ProductSize>*/}
+                        {/*                <b> Size: </b>38.5*/}
+                        {/*            </ProductSize>*/}
+                        {/*        </Details>*/}
+                        {/*    </ProductDetail>*/}
+                        {/*    <PriceDetail>*/}
+                        {/*        <ProductAmountContainer>*/}
+                        {/*            <Add style={{cursor: 'pointer'}}/>*/}
+                        {/*            <ProductAmount> 3 </ProductAmount>*/}
+                        {/*            <Remove style={{cursor: 'pointer'}}/>*/}
+                        {/*        </ProductAmountContainer>*/}
+                        {/*        <ProductPrice> $ 300 </ProductPrice>*/}
+                        {/*    </PriceDetail>*/}
+                        {/*</Product>*/}
+                        {/*<Hr/>*/}
+                        {/*<Product>*/}
+                        {/*    <ProductDetail>*/}
+                        {/*        <Image*/}
+                        {/*            src="https://i.pinimg.com/originals/2d/af/f8/2daff8e0823e51dd752704a47d5b795c.png"/>*/}
+                        {/*        <Details>*/}
+                        {/*            <ProductName>*/}
+                        {/*                <b> Product: </b> HAKURA T-SHIRT*/}
+                        {/*            </ProductName>*/}
+                        {/*            <ProductID>*/}
+                        {/*                <b> ID: </b>SD34F3 IQW2923494823*/}
+                        {/*            </ProductID>*/}
+                        {/*            <ProductColor color="gray"/>*/}
+                        {/*            <ProductSize>*/}
+                        {/*                <b> Size: </b>M*/}
+                        {/*            </ProductSize>*/}
+                        {/*        </Details>*/}
+                        {/*    </ProductDetail>*/}
+                        {/*    <PriceDetail>*/}
+                        {/*        <ProductAmountContainer>*/}
+                        {/*            <Add style={{cursor: 'pointer'}}/>*/}
+                        {/*            <ProductAmount> 3 </ProductAmount>*/}
+                        {/*            <Remove style={{cursor: 'pointer'}}/>*/}
+                        {/*        </ProductAmountContainer>*/}
+                        {/*        <ProductPrice> $ 150 </ProductPrice>*/}
+                        {/*    </PriceDetail>*/}
+                        {/*</Product>*/}
                     </Info>
                     <Summary>
                         <SummaryTitle> ORDER SUMMARY </SummaryTitle>
                         <SummaryItem>
                             <SummaryTitleText> Subtotal </SummaryTitleText>
-                            <SummaryItemPrice> $ 80 </SummaryItemPrice>
+                            <SummaryItemPrice> $ {total} </SummaryItemPrice>
                         </SummaryItem>
                         <SummaryItem>
                             <SummaryTitleText>
@@ -213,7 +253,7 @@ const Cart = () => {
                         </SummaryItem>
                         <SummaryItem type="total">
                             <SummaryTitleText> Total </SummaryTitleText>
-                            <SummaryItemPrice> $ 83 </SummaryItemPrice>
+                            <SummaryItemPrice> $ {total} </SummaryItemPrice>
                         </SummaryItem>
                         <Button> CHECK OUT </Button>
                     </Summary>

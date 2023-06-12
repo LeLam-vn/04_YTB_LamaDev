@@ -9,6 +9,8 @@ import {useLocation} from "react-router-dom";
 import {publicRequest} from "../requestMethods.js";
 import axios from "axios";
 import {colors} from "@mui/material";
+import {addProduct} from "../redux/cartRedux.js";
+import {useDispatch, useSelector} from "react-redux";
 
 const Container = styled.div`
 
@@ -114,6 +116,7 @@ const Product = () => {
     const [quantity, setQuantity] = useState(1);
     const [color, setColor] = useState('');
     const [size, setSize] = useState('');
+    const dispatch = useDispatch()
 
     useEffect(() => {
         const getProduct = async () => {
@@ -159,10 +162,19 @@ const Product = () => {
             setQuantity(quantity + 1)
         }
     }
-console.log('Color: ', color,  "and Size: ", size)
-    const handleClickAddCart=()=>{
-
+    // console.log('Color:-Product.jsx-162 ', color, "and Size:-Product.jsx-162 ", size)
+    const handleClickAddCart = () => {
+        dispatch(
+            addProduct({
+                    // product: product,
+                    // quantity: quantity,
+                    // price: product.price * quantity,
+                ...product, quantity, color, size
+                }
+            ))
     }
+    const price = useSelector(state => state.cart.price)
+    console.log(price)
 
     return (
         <Container>

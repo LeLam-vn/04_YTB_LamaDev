@@ -3,7 +3,7 @@ import styled from "styled-components";
 import {Search, ShoppingCartOutlined} from "@mui/icons-material";
 import {Badge} from "@mui/material";
 import {mobile} from "../responsive.js";
-import {Link, Redirect} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {useSelector} from "react-redux";
 
 const Container = styled.div`
@@ -85,8 +85,7 @@ const MenuItem = styled.div`
 
 const Navbar = () => {
     const quantity = useSelector(state => state.cart.quantity)
-
-    console.log("cart-FE-Navbar.jsx-88: ", quantity)
+    console.log('quantity-BE-Navbar.jsx-88:', quantity)
     return (
         <Container>
             <Wrapper>
@@ -104,12 +103,14 @@ const Navbar = () => {
                 </Center>
                 <Right>
                     <MenuItem>REGISTER</MenuItem>
-                    <MenuItem>LOG IN</MenuItem>
-                    <MenuItem>
-                        <Badge badgeContent={quantity} color="primary">
-                            <ShoppingCartOutlined color="action"/>
-                        </Badge>
-                    </MenuItem>
+                    <MenuItem>SIGN IN</MenuItem>
+                    <Link to='/cart'>
+                        <MenuItem>
+                            <Badge badgeContent={quantity} color="primary">
+                                <ShoppingCartOutlined color="action"/>
+                            </Badge>
+                        </MenuItem>
+                    </Link>
 
                 </Right>
             </Wrapper>
